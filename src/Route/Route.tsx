@@ -1,4 +1,4 @@
-import "./css/app.css";
+import "../css/route.css";
 
 function App() {
   return (
