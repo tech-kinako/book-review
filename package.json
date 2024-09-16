@@ -15,11 +15,15 @@
     "check-write": "biome check --write ./src"
   },
   "dependencies": {
+    "@react-navigation/native": "^6.1.18",
     "react": "^18.3.1",
-    "react-dom": "^18.3.1"
+    "react-dom": "^18.3.1",
+    "react-router-dom": "^6.26.2"
   },
   "devDependencies": {
     "@biomejs/biome": "1.9.0",
+    "@playwright/test": "^1.47.1",
+    "@types/node": "^22.5.5",
     "@types/react": "^18.3.3",
     "@types/react-dom": "^18.3.0",
     "@vitejs/plugin-react-swc": "^3.5.0",
