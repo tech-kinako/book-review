@@ -70,7 +70,7 @@ export const Login = () => {
       </div>
       <form className="w-full flex flex-col items-center space-y-4">
         <Field
-          lblTitle="useName"
+          lblTitle="userName"
           lblText={userName}
           name="user"
           handleChange={(e) => setUserName(e.target.value)}
