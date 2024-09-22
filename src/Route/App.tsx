@@ -1,6 +1,7 @@
 import { Navigate, Route, Routes } from "react-router-dom";
 import { Header } from "../components/util/Header";
-import { Login } from "../pages/Login";
+import { Login } from "../pages/LogIn";
+import { SignUp } from "../pages/SignUp";
 import "../css/app.css";
 
 function App() {
@@ -10,7 +11,8 @@ function App() {
       <div className="w-3/4 mx-auto flex flex-col items-center">
         <Routes>
           <Route path="login" element={<Login />} />
-          <Route path="*" element={<Navigate to="/" />} />
+          <Route path="signup" element={<SignUp />} />
+          <Route path="*" element={<Navigate to="/login" />} />
         </Routes>
       </div>
     </div>
