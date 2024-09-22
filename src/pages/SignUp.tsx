@@ -62,11 +62,13 @@ export const SignUp = () => {
   };
 
   return (
-    <Form
-      title={"Sign Up"}
-      inputValues={inputValues}
-      onClickSubmit={handleSubmit}
-      isIcon={true}
-    />
+    <div className="w-3/4 mx-auto flex flex-col items-center">
+      <Form
+        title={"Sign Up"}
+        inputValues={inputValues}
+        onClickSubmit={handleSubmit}
+        isIcon={true}
+      />
+    </div>
   );
 };

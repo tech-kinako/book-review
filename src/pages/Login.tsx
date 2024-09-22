@@ -1,8 +1,8 @@
-import { useNavigate } from "react-router-dom";
+import { useCookies } from "react-cookie";
 import type { FieldValues } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
 import { Form } from "../components/util/Form";
 import { axiosInstance } from "../interfaces/axiosinterface";
-import { useCookies } from "react-cookie";
 
 export const Login = () => {
   const inputValues: string[] = ["email", "password"];
@@ -28,11 +28,13 @@ export const Login = () => {
   };
 
   return (
-    <Form
-      title={"Log In"}
-      inputValues={inputValues}
-      onClickSubmit={handleSubmit}
-      isIcon={false}
-    />
+    <div className="w-3/4 mx-auto flex flex-col items-center">
+      <Form
+        title={"Log In"}
+        inputValues={inputValues}
+        onClickSubmit={handleSubmit}
+        isIcon={false}
+      />
+    </div>
   );
 };

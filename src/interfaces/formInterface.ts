@@ -1,6 +1,6 @@
 export interface IForm {
   title: string;
   inputValues: string[];
-  onClickSubmit: (data) => void;
+  onClickSubmit: (data: any) => void;
   isIcon: boolean;
 }
