@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { useCookies } from "react-cookie";
 import { ReviewList } from "../components/home/ReviewList";
 import { axiosInstance } from "../interfaces/axiosinterface";
 import type { IReview } from "../interfaces/reviewinterface";
