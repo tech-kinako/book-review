@@ -13,7 +13,8 @@
     "lint-write": "biome lint --write ./src",
     "check": "biome check ./src",
     "check-write": "biome check --write ./src",
-    "test": "jest ./tests/jest"
+    "test": "jest ./tests/jest",
+    "playwright": "npx playwright test /tests/playwright --headed"
   },
   "dependencies": {
     "@react-navigation/native": "^6.1.18",
