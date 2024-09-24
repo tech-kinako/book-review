@@ -17,6 +17,10 @@ export const Header = () => {
     navigate("/signup");
   };
 
+  const handleLogoutClick = () => {
+    navigate("/");
+  };
+
   return (
     <>
       <header className="w-full pl-3 bg-gray-300 mb-5 flex">
@@ -29,13 +33,19 @@ export const Header = () => {
             style="w-28 bg-zinc-700 hover:bg-zinc-500 text-white font-bold py-2 px-4 h-9 rounded"
             btnText="Log in"
             handleClick={handleLoginClick}
-            isHidden={location.pathname === "/login"}
+            isHidden={location.pathname === "/login" || location.pathname === "/home"}
           />
           <Button
             style="w-28 bg-gray-400 hover:bg-gray-100 font-bold py-2 px-4 h-9 rounded"
             btnText="Sign Up"
             handleClick={handleSignUpClick}
-            isHidden={location.pathname === "/signup"}
+            isHidden={location.pathname === "/signup" || location.pathname === "/home"}
+          />
+          <Button
+            style="w-28 bg-gray-400 hover:bg-gray-100 font-bold py-2 px-4 h-9 rounded"
+            btnText="Logout"
+            handleClick={handleLogoutClick}
+            isHidden={location.pathname === "/signup" || location.pathname === "/login"}
           />
         </div>
       </header>
