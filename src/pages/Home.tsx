@@ -13,11 +13,11 @@ export const Home = () => {
   );
 
   useEffect(() => {
-    getReviewItems();
+    getReviewItems(currentPage);
   }, [currentPage]);
 
-  const getReviewItems = () => {
-    axiosInstance.get(`/public/books?offset=${currentPage - 1}`).then((res) => {
+  const getReviewItems = (next: number) => {
+    axiosInstance.get(`/public/books?offset=${next - 1}`).then((res) => {
       setReviewItems(res.data);
     });
   };
