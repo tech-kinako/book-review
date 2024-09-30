@@ -10,7 +10,7 @@ export const ReviewList: React.FC<IReview> = ({
   return (
     <div
       key={id}
-      className="w-100 min-h-60 p-4 bg-stone-300 shadow-lg rounded-lg "
+      className="w-100 min-h-60 max-h-80 p-4 bg-stone-300 shadow-lg rounded-lg overflow-hidden"
     >
       <h2 className="text-xl font-semibold text-navy border-b-4">{title}</h2>
       <p className="text-xl text-navy mt-6 break-words overflow-wrap">
