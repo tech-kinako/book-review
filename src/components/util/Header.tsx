@@ -1,12 +1,16 @@
+import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 import book from "../../assets/book-icon.png";
+import { signOut } from "../../redux/authSlice";
+import type { AppDispatch } from "../../redux/store";
 import { Button } from "../util/Button";
 
 export const Header = () => {
   //const
   const navigate = useNavigate();
   const location = useLocation();
+  const dispatch = useDispatch<AppDispatch>();
 
   //function
   const handleLoginClick = () => {
@@ -18,6 +22,7 @@ export const Header = () => {
   };
 
   const handleLogoutClick = () => {
+    dispatch(signOut());
     navigate("/");
   };
 

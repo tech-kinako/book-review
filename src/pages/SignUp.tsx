@@ -2,14 +2,18 @@
 import Compressor from "compressorjs";
 import { useCookies } from "react-cookie";
 import type { FieldValues } from "react-hook-form";
+import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { Form } from "../components/util/Form";
 import { axiosInstance } from "../interfaces/axiosinterface";
+import { signIn } from "../redux/authSlice";
+import type { AppDispatch } from "../redux/store";
 
 export const SignUp = () => {
   const inputValues: string[] = ["name", "email", "password"];
   const [, setCookie] = useCookies(["token"]);
   const navigate = useNavigate();
+  const dispatch = useDispatch<AppDispatch>();
 
   const handleSubmit = async (data: FieldValues) => {
     //ユーザー登録
@@ -37,6 +41,7 @@ export const SignUp = () => {
             },
           })
           .then((res) => {
+            dispatch(signIn());
             navigate("/home");
           });
       })

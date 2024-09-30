@@ -1,19 +1,29 @@
+import { useSelector } from "react-redux";
 import { Navigate, Route, Routes } from "react-router-dom";
 import { Header } from "../components/util/Header";
 import { Home } from "../pages/Home";
 import { Login } from "../pages/Login";
 import { SignUp } from "../pages/SignUp";
+import type { RootState } from "../redux/store";
 import "../css/app.css";
 
 function App() {
+  const auth = useSelector((state: RootState) => state.auth.isSignIn);
+
   return (
     <div className="w-full min-h-screen bg-gray-100 font-serif text-base text-gray-700">
       <Header />
       <Routes>
         <Route path="login" element={<Login />} />
         <Route path="signup" element={<SignUp />} />
-        <Route path="home" element={<Home />} />
-        <Route path="*" element={<Navigate to="/login" />} />
+        {auth ? (
+          <>
+            <Route path="home" element={<Home />} />
+            <Route path="*" element={<Navigate to="/home" />} />
+          </>
+        ) : (
+          <Route path="*" element={<Navigate to="/login" />} />
+        )}
       </Routes>
     </div>
   );
