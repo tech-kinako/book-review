@@ -26,6 +26,10 @@ export const Header = () => {
     navigate("/");
   };
 
+  const handleProfileClick = () => {
+    navigate("/profile");
+  };
+
   return (
     <>
       <header className="w-full pl-3 bg-gray-300 mb-5 flex">
@@ -39,7 +43,9 @@ export const Header = () => {
             btnText="Log in"
             handleClick={handleLoginClick}
             isHidden={
-              location.pathname === "/login" || location.pathname === "/home"
+              location.pathname === "/login" ||
+              location.pathname === "/home" ||
+              location.pathname === "/profile"
             }
           />
           <Button
@@ -47,7 +53,19 @@ export const Header = () => {
             btnText="Sign Up"
             handleClick={handleSignUpClick}
             isHidden={
-              location.pathname === "/signup" || location.pathname === "/home"
+              location.pathname === "/signup" ||
+              location.pathname === "/home" ||
+              location.pathname === "/profile"
+            }
+          />
+          <Button
+            style="w-28 bg-zinc-700 hover:bg-zinc-500 text-white font-bold py-2 px-4 h-9 rounded"
+            btnText="Profile"
+            handleClick={handleProfileClick}
+            isHidden={
+              location.pathname === "/signup" ||
+              location.pathname === "/login" ||
+              location.pathname === "/profile"
             }
           />
           <Button
