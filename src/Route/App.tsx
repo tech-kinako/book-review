@@ -3,6 +3,7 @@ import { Navigate, Route, Routes } from "react-router-dom";
 import { Header } from "../components/util/Header";
 import { Home } from "../pages/Home";
 import { Login } from "../pages/Login";
+import { NewReview } from "../pages/NewReview";
 import { Profile } from "../pages/Profile";
 import { SignUp } from "../pages/SignUp";
 import type { RootState } from "../redux/store";
@@ -20,8 +21,9 @@ function App() {
         {auth ? (
           <>
             <Route path="home" element={<Home />} />
-            <Route path="*" element={<Navigate to="/home" />} />
             <Route path="profile" element={<Profile />} />
+            <Route path="new" element={<NewReview />} />
+            <Route path="*" element={<Navigate to="/home" />} />
           </>
         ) : (
           <Route path="*" element={<Navigate to="/login" />} />

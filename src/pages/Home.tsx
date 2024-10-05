@@ -33,7 +33,7 @@ export const Home = () => {
               id={review.id}
               title={review.title}
               review={review.review}
-              reviewer={review.review}
+              reviewer={review.reviewer}
             />
           );
         })}
