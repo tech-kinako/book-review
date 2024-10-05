@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { Pagination } from "../components/home/Pagination";
 import { ReviewList } from "../components/home/ReviewList";
 import { axiosInstance } from "../interfaces/axiosinterface";
@@ -8,6 +9,7 @@ import type { RootState } from "../redux/store";
 
 export const Home = () => {
   const [reviewItems, setReviewItems] = useState<IReview[]>();
+  const navigate = useNavigate();
   const currentPage = useSelector(
     (state: RootState) => state.pagination.currentPage,
   );
@@ -22,6 +24,10 @@ export const Home = () => {
     });
   };
 
+  const handleClickReview = (id: string) => {
+    navigate(`/detail/${id}`);
+  };
+
   return (
     <div className="w-4/5 mx-auto">
       <h1 className="text-3xl font-bold mb-6">書籍レビュー一覧</h1>
@@ -34,6 +40,7 @@ export const Home = () => {
               title={review.title}
               review={review.review}
               reviewer={review.reviewer}
+              handleClickReview={handleClickReview}
             />
           );
         })}

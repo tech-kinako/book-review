@@ -6,11 +6,22 @@ export const ReviewList: React.FC<IReview> = ({
   title,
   review,
   reviewer,
+  handleClickReview,
 }) => {
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
+    if (e.key === "Enter" || e.key === " ") {
+      handleClickReview(id);
+    }
+  };
+
   return (
     <div
       key={id}
       className="w-100 min-h-60 max-h-80 p-4 bg-stone-300 shadow-lg rounded-lg overflow-hidden"
+      onKeyDown={(e) => handleKeyDown(e)}
+      onClick={(e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+        handleClickReview(id);
+      }}
     >
       <h2 className="text-xl font-semibold text-navy border-b-4">{title}</h2>
       <p className="text-xl text-navy mt-6 break-words overflow-wrap">

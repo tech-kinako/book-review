@@ -11,6 +11,7 @@ export const Header = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const dispatch = useDispatch<AppDispatch>();
+  const path = location.pathname.split("/")[1];
 
   //function
   const handleLoginClick = () => {
@@ -34,10 +35,24 @@ export const Header = () => {
     navigate("/new");
   };
 
+  const handleClickLogo = () => {
+    navigate("/");
+  };
+
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
+    if (e.key === "Enter" || e.key === " ") {
+      handleClickLogo();
+    }
+  };
+
   return (
     <>
       <header className="w-full pl-3 bg-gray-300 mb-5 flex">
-        <div className="w-full h-12 flex justify-start items-center">
+        <div
+          className="w-full h-12 flex justify-start items-center"
+          onClick={handleClickLogo}
+          onKeyDown={handleKeyDown}
+        >
           <img src={book} alt="logo" className="h-8 w-8 mr-3" />
           <h1 className="italic text-3xl font-bold">Book Review App</h1>
         </div>
@@ -50,7 +65,8 @@ export const Header = () => {
               location.pathname === "/login" ||
               location.pathname === "/home" ||
               location.pathname === "/profile" ||
-              location.pathname === "/new"
+              location.pathname === "/new" ||
+              path === "detail"
             }
           />
           <Button
@@ -61,7 +77,8 @@ export const Header = () => {
               location.pathname === "/signup" ||
               location.pathname === "/home" ||
               location.pathname === "/profile" ||
-              location.pathname === "/new"
+              location.pathname === "/new" ||
+              path === "detail"
             }
           />
           <Button
@@ -72,7 +89,8 @@ export const Header = () => {
               location.pathname === "/signup" ||
               location.pathname === "/login" ||
               location.pathname === "/profile" ||
-              location.pathname === "/new"
+              location.pathname === "/new" ||
+              path === "detail"
             }
           />
           <Button

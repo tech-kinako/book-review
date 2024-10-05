@@ -5,6 +5,7 @@ import { Home } from "../pages/Home";
 import { Login } from "../pages/Login";
 import { NewReview } from "../pages/NewReview";
 import { Profile } from "../pages/Profile";
+import { ReviewDetail } from "../pages/ReviewDetail";
 import { SignUp } from "../pages/SignUp";
 import type { RootState } from "../redux/store";
 import "../css/app.css";
@@ -23,6 +24,7 @@ function App() {
             <Route path="home" element={<Home />} />
             <Route path="profile" element={<Profile />} />
             <Route path="new" element={<NewReview />} />
+            <Route path="detail/:id" element={<ReviewDetail />} />
             <Route path="*" element={<Navigate to="/home" />} />
           </>
         ) : (
