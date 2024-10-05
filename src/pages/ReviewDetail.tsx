@@ -43,11 +43,15 @@ export const ReviewDetail = () => {
 
   const postLog = async () => {
     await axiosInstance
-      .post("/logs", {selectBookId: id}, { headers: { authorization: `Bearer ${cookie.token}` } })
+      .post(
+        "/logs",
+        { selectBookId: id },
+        { headers: { authorization: `Bearer ${cookie.token}` } },
+      )
       .catch((err) => {
         alert(`ログの送信に失敗しました。${err.message}`);
       });
-  }
+  };
 
   const LoadingModal = () => {
     if (!isLoading) return null;
