@@ -1,101 +1,45 @@
-import { useState } from "react";
+import { useCookies } from "react-cookie";
+import type { FieldValues } from "react-hook-form";
+import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { Button } from "../components/util/Button";
-import { Field } from "../components/util/Field";
-
-interface errotMessages {
-  userName: string;
-  email: string;
-  password: string;
-}
+import { Form } from "../components/util/Form";
+import { axiosInstance } from "../interfaces/axiosinterface";
+import { signIn } from "../redux/authSlice";
+import type { AppDispatch } from "../redux/store";
 
 export const Login = () => {
-  //state
-  const [userName, setUserName] = useState<string>("");
-  const [email, setEmail] = useState<string>("");
-  const [password, setPassword] = useState<string>("");
-  const [errorMessages, setErrorMessages] = useState<errotMessages>({
-    userName: "",
-    email: "",
-    password: "",
-  });
-
+  const inputValues: string[] = ["email", "password"];
+  const [, setCookie] = useCookies(["token"]);
   const navigate = useNavigate();
+  const dispatch = useDispatch<AppDispatch>();
 
-  //function
-  const handleLoginClick = () => {
-    //フォームバリデーションチェック
-    const error = formValidation();
-    error ? "" : navigate("/");
-  };
+  const handleSubmit = async (data: FieldValues) => {
+    //ログイン情報
+    const postData = {
+      email: data.email,
+      password: data.password,
+    };
 
-  const formValidation = () => {
-    //エラーメッセージ状態
-    let error = false;
-    //エラーメッセージリセット
-    setErrorMessages({ userName: "", email: "", password: "" });
-
-    //入力チェック
-    if (userName === "") {
-      setErrorMessages((prev) => ({
-        ...prev,
-        userName: "Please enter userName.",
-      }));
-      error = true;
-    }
-    if (email === "") {
-      setErrorMessages((prev) => ({
-        ...prev,
-        email: "Please enter a valid email address.",
-      }));
-      error = true;
-    }
-    if (password === "") {
-      setErrorMessages((prev) => ({
-        ...prev,
-        password: "Please enter your password.",
-      }));
-      error = true;
-    }
-
-    return error;
+    await axiosInstance
+      .post("/signin", postData)
+      .then((res) => {
+        setCookie("token", res.data.token);
+        dispatch(signIn());
+        navigate("/home");
+      })
+      .catch((err) => {
+        alert(`ログインに失敗しました。${err.message}`);
+      });
   };
 
   return (
-    <div className="h-3/6 w-3/6 flex flex-col items-center mt-6 space-y-6">
-      <div className="w-full">
-        <h2 className="text-center text-3xl font-extrabold text-gray-900">
-          Log In
-        </h2>
-      </div>
-      <form className="w-full flex flex-col items-center space-y-4">
-        <Field
-          lblTitle="useName"
-          lblText={userName}
-          name="user"
-          handleChange={(e) => setUserName(e.target.value)}
-          errorMessage={errorMessages?.userName}
-        />
-        <Field
-          lblTitle="email"
-          lblText={email}
-          name="email"
-          handleChange={(e) => setEmail(e.target.value)}
-          errorMessage={errorMessages?.email}
-        />
-        <Field
-          lblTitle="Password"
-          lblText={password}
-          name="password"
-          handleChange={(e) => setPassword(e.target.value)}
-          errorMessage={errorMessages?.password}
-        />
-        <Button
-          style="w-28 bg-indigo-400 text-white hover:bg-indigo-600 font-bold py-2 px-4 h-9 rounded"
-          btnText="Submit"
-          handleClick={handleLoginClick}
-        />
-      </form>
+    <div className="w-3/4 mx-auto flex flex-col items-center">
+      <Form
+        title={"Log In"}
+        inputValues={inputValues}
+        onClickSubmit={handleSubmit}
+        isIcon={false}
+      />
     </div>
   );
 };
