@@ -4,4 +4,5 @@ export interface IReview {
   review: string;
   reviewer: string;
   handleClickReview: (id: string) => void;
+  userId: string;
 }

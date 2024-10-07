@@ -8,6 +8,7 @@ interface Idata {
   url: string;
   review: string;
   reviewer: string;
+  detail: string;
 }
 
 export const ReviewDetail = () => {
@@ -32,6 +33,7 @@ export const ReviewDetail = () => {
           url: res.data.url,
           review: res.data.review,
           reviewer: res.data.reviewer,
+          detail: res.data.detail,
         };
         setData(tempData);
         setIsLocading(false);
@@ -84,6 +86,9 @@ export const ReviewDetail = () => {
             </p>
             <p className="text-xl text-navy mt-2 break-words overflow-wrap">
               レビュー：{data?.review}
+            </p>
+            <p className="text-xl text-navy mt-2 break-words overflow-wrap">
+              詳細：{data?.detail}
             </p>
           </div>
         </div>

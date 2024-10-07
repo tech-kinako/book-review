@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useCookies } from "react-cookie";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { Pagination } from "../components/home/Pagination";
@@ -9,10 +10,16 @@ import type { RootState } from "../redux/store";
 
 export const Home = () => {
   const [reviewItems, setReviewItems] = useState<IReview[]>();
+  const [userId, setUserId] = useState<string>("");
+  const [cookie] = useCookies();
   const navigate = useNavigate();
   const currentPage = useSelector(
     (state: RootState) => state.pagination.currentPage,
   );
+
+  useEffect(() => {
+    getUserId();
+  }, []);
 
   useEffect(() => {
     getReviewItems(currentPage);
@@ -22,6 +29,19 @@ export const Home = () => {
     axiosInstance.get(`/public/books?offset=${next - 1}`).then((res) => {
       setReviewItems(res.data);
     });
+  };
+
+  const getUserId = async () => {
+    await axiosInstance
+      .get("/users", {
+        headers: { authorization: `Bearer ${cookie.token}` },
+      })
+      .then((res) => {
+        setUserId(res.data.name);
+      })
+      .catch((err) => {
+        alert(`データの取得に失敗しました。${err.message}`);
+      });
   };
 
   const handleClickReview = (id: string) => {
@@ -41,6 +61,7 @@ export const Home = () => {
               review={review.review}
               reviewer={review.reviewer}
               handleClickReview={handleClickReview}
+              userId={userId}
             />
           );
         })}

@@ -66,7 +66,8 @@ export const Header = () => {
               location.pathname === "/home" ||
               location.pathname === "/profile" ||
               location.pathname === "/new" ||
-              path === "detail"
+              path === "detail" ||
+              path === "edit"
             }
           />
           <Button
@@ -78,7 +79,8 @@ export const Header = () => {
               location.pathname === "/home" ||
               location.pathname === "/profile" ||
               location.pathname === "/new" ||
-              path === "detail"
+              path === "detail" ||
+              path === "edit"
             }
           />
           <Button
@@ -90,7 +92,8 @@ export const Header = () => {
               location.pathname === "/login" ||
               location.pathname === "/profile" ||
               location.pathname === "/new" ||
-              path === "detail"
+              path === "detail" ||
+              path === "edit"
             }
           />
           <Button

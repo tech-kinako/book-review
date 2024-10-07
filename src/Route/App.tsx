@@ -1,6 +1,7 @@
 import { useSelector } from "react-redux";
 import { Navigate, Route, Routes } from "react-router-dom";
 import { Header } from "../components/util/Header";
+import { EditReview } from "../pages/EditReview";
 import { Home } from "../pages/Home";
 import { Login } from "../pages/Login";
 import { NewReview } from "../pages/NewReview";
@@ -25,6 +26,7 @@ function App() {
             <Route path="profile" element={<Profile />} />
             <Route path="new" element={<NewReview />} />
             <Route path="detail/:id" element={<ReviewDetail />} />
+            <Route path="edit/:id" element={<EditReview />} />
             <Route path="*" element={<Navigate to="/home" />} />
           </>
         ) : (

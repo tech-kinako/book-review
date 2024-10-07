@@ -1,4 +1,5 @@
 import type React from "react";
+import { useNavigate } from "react-router-dom";
 import type { IReview } from "../../interfaces/reviewinterface";
 
 export const ReviewList: React.FC<IReview> = ({
@@ -7,11 +8,19 @@ export const ReviewList: React.FC<IReview> = ({
   review,
   reviewer,
   handleClickReview,
+  userId,
 }) => {
+  const navigate = useNavigate();
+
   const handleKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
     if (e.key === "Enter" || e.key === " ") {
       handleClickReview(id);
     }
+  };
+
+  const handleEditClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.stopPropagation();
+    navigate(`/edit/${id}`);
   };
 
   return (
@@ -30,6 +39,21 @@ export const ReviewList: React.FC<IReview> = ({
       <p className="text-xl text-navy mt-2 break-words overflow-wrap">
         レビュワー：{reviewer}
       </p>
+      <div>
+        {userId === reviewer && (
+          <div className="text-center mt-4 z-10">
+            <button
+              type="button"
+              className="bg-white text-navy font-semibold py-2 px-4 border-solid border-2 rounded-lg"
+              onClick={(e) => {
+                handleEditClick(e);
+              }}
+            >
+              編集する
+            </button>
+          </div>
+        )}
+      </div>
     </div>
   );
 };
