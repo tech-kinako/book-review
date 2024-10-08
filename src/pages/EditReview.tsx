@@ -2,10 +2,10 @@ import { useEffect, useState } from "react";
 import { useCookies } from "react-cookie";
 import type { FieldValues } from "react-hook-form";
 import { useForm } from "react-hook-form";
+import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import { axiosInstance } from "../interfaces/axiosinterface";
-import { useSelector } from "react-redux";
 import type { RootState } from "../redux/store";
 
 interface Idata {
@@ -33,13 +33,11 @@ export const EditReview = () => {
       review: data?.review,
     },
   });
-  const user = useSelector(
-    (state: RootState) => state.user.user,
-  );
+  const user = useSelector((state: RootState) => state.user.user);
 
   useEffect(() => {
     getReviewDetail();
-  }, [reset]);
+  }, []);
 
   const getReviewDetail = async () => {
     await axiosInstance
@@ -53,7 +51,7 @@ export const EditReview = () => {
           detail: res.data.detail,
           review: res.data.review,
         };
-        user !== res.data.reviewer? navigate("/home") : "";
+        user !== res.data.reviewer ? navigate("/home") : "";
         setData(tempData);
         reset(tempData);
       })
