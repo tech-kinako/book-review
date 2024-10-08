@@ -1,18 +1,20 @@
 import { useEffect, useState } from "react";
 import { useCookies } from "react-cookie";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { Pagination } from "../components/home/Pagination";
 import { ReviewList } from "../components/home/ReviewList";
 import { axiosInstance } from "../interfaces/axiosinterface";
 import type { IReview } from "../interfaces/reviewinterface";
-import type { RootState } from "../redux/store";
+import type { AppDispatch, RootState } from "../redux/store";
+import { setUser } from "../redux/userId";
 
 export const Home = () => {
   const [reviewItems, setReviewItems] = useState<IReview[]>();
   const [userId, setUserId] = useState<string>("");
   const [cookie] = useCookies();
   const navigate = useNavigate();
+  const dispatch = useDispatch<AppDispatch>();
   const currentPage = useSelector(
     (state: RootState) => state.pagination.currentPage,
   );
@@ -38,6 +40,7 @@ export const Home = () => {
       })
       .then((res) => {
         setUserId(res.data.name);
+        dispatch(setUser(res.data.name));
       })
       .catch((err) => {
         alert(`データの取得に失敗しました。${err.message}`);

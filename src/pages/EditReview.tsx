@@ -5,6 +5,8 @@ import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import { axiosInstance } from "../interfaces/axiosinterface";
+import { useSelector } from "react-redux";
+import type { RootState } from "../redux/store";
 
 interface Idata {
   title: string;
@@ -21,12 +23,23 @@ export const EditReview = () => {
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors },
-  } = useForm();
+  } = useForm({
+    defaultValues: {
+      title: data?.title,
+      url: data?.url,
+      detail: data?.detail,
+      review: data?.review,
+    },
+  });
+  const user = useSelector(
+    (state: RootState) => state.user.user,
+  );
 
   useEffect(() => {
     getReviewDetail();
-  }, []);
+  }, [reset]);
 
   const getReviewDetail = async () => {
     await axiosInstance
@@ -40,7 +53,9 @@ export const EditReview = () => {
           detail: res.data.detail,
           review: res.data.review,
         };
+        user !== res.data.reviewer? navigate("/home") : "";
         setData(tempData);
+        reset(tempData);
       })
       .catch((err) => {
         alert(`データの取得に失敗しました。${err.message}`);
@@ -103,7 +118,6 @@ export const EditReview = () => {
               {...register("title", { required: "Pelase Input Book Title" })}
               className="w-full h-8 pl-2 rounded"
               placeholder={"Input Book Title"}
-              defaultValue={data?.title}
             />
             {errors.title?.message && (
               <span className="error-message text-sm text-red-500">
@@ -120,28 +134,10 @@ export const EditReview = () => {
               {...register("url", { required: "Pelase Input URL" })}
               className="w-full h-8 pl-2 rounded"
               placeholder={"Input URL"}
-              defaultValue={data?.url}
             />
             {errors.url?.message && (
               <span className="error-message text-sm text-red-500">
                 {errors.url.message.toString()}
-              </span>
-            )}
-          </label>
-          <label key="detail" className="w-full text-xl h-20">
-            Detail
-            <input
-              type="text"
-              key="detail"
-              id="detail"
-              {...register("detail", { required: "Pelase Input Detail" })}
-              className="w-full h-8 pl-2 rounded"
-              placeholder={"Input Detail"}
-              defaultValue={data?.detail}
-            />
-            {errors.detail?.message && (
-              <span className="error-message text-sm text-red-500">
-                {errors.detail.message.toString()}
               </span>
             )}
           </label>
@@ -154,11 +150,25 @@ export const EditReview = () => {
               {...register("review", { required: "Pelase Input Review" })}
               className="w-full h-8 pl-2 rounded"
               placeholder={"Input Review"}
-              defaultValue={data?.review}
             />
             {errors.review?.message && (
               <span className="error-message text-sm text-red-500">
                 {errors.review.message.toString()}
+              </span>
+            )}
+          </label>
+          <label key="detail" className="w-full text-xl h-50">
+            Detail
+            <textarea
+              key="detail"
+              id="detail"
+              {...register("detail", { required: "Pelase Input Detail" })}
+              className="w-full h-32 pl-2 resize-none rounded"
+              placeholder={"Input Detail"}
+            />
+            {errors.detail?.message && (
+              <span className="error-message text-sm text-red-500">
+                {errors.detail.message.toString()}
               </span>
             )}
           </label>

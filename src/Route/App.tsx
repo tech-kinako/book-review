@@ -1,5 +1,6 @@
 import { useSelector } from "react-redux";
 import { Navigate, Route, Routes } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import { Header } from "../components/util/Header";
 import { EditReview } from "../pages/EditReview";
 import { Home } from "../pages/Home";
@@ -18,8 +19,15 @@ function App() {
     <div className="w-full min-h-screen bg-gray-100 font-serif text-base text-gray-700">
       <Header />
       <Routes>
-        <Route path="login" element={<Login />} />
-        <Route path="signup" element={<SignUp />} />
+        {!auth ? (
+          <>
+            <Route path="login" element={<Login />} />
+            <Route path="signup" element={<SignUp />} />
+          </>
+        ) : (
+          <Route path="*" element={<Navigate to="/home" />} />
+        )}
+
         {auth ? (
           <>
             <Route path="home" element={<Home />} />
