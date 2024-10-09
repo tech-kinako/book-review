@@ -1,7 +1,10 @@
+import { useEffect, useState } from "react";
+import { useCookies } from "react-cookie";
 import { useSelector } from "react-redux";
 import { Navigate, Route, Routes } from "react-router-dom";
-import { useLocation } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { Header } from "../components/util/Header";
+import { axiosInstance } from "../interfaces/axiosinterface";
 import { EditReview } from "../pages/EditReview";
 import { Home } from "../pages/Home";
 import { Login } from "../pages/Login";
@@ -14,6 +17,36 @@ import "../css/app.css";
 
 function App() {
   const auth = useSelector((state: RootState) => state.auth.isSignIn);
+  const [cookie] = useCookies();
+
+  const ProtectedEditRoute = () => {
+    const myUser = useSelector((state: RootState) => state.user.user);
+    const { id: editId } = useParams();
+    const [isEdit, setIsEdit] = useState<boolean>();
+
+    useEffect(() => {
+      getEditUser();
+    }, []);
+
+    const getEditUser = async () => {
+      await axiosInstance
+        .get(`books/${editId}`, {
+          headers: { authorization: `Bearer ${cookie.token}` },
+        })
+        .then((res) => {
+          myUser === res.data.reviewer ? setIsEdit(true) : setIsEdit(false);
+        })
+        .catch((err) => {
+          alert(`editの取得に失敗しました。${err.message}`);
+        });
+    };
+
+    if (isEdit === undefined) {
+      return <div>Loading...</div>;
+    }
+
+    return isEdit ? <EditReview /> : <Navigate to="/home" />;
+  };
 
   return (
     <div className="w-full min-h-screen bg-gray-100 font-serif text-base text-gray-700">
@@ -34,7 +67,7 @@ function App() {
             <Route path="profile" element={<Profile />} />
             <Route path="new" element={<NewReview />} />
             <Route path="detail/:id" element={<ReviewDetail />} />
-            <Route path="edit/:id" element={<EditReview />} />
+            <Route path="edit/:id" element={<ProtectedEditRoute />} />
             <Route path="*" element={<Navigate to="/home" />} />
           </>
         ) : (
