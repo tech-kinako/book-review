@@ -84,22 +84,6 @@ export const NewReview = () => {
               </span>
             )}
           </label>
-          <label key="detail" className="w-full text-xl h-20">
-            Detail
-            <input
-              type="text"
-              key="detail"
-              id="detail"
-              {...register("detail", { required: "Pelase Input Detail" })}
-              className="w-full h-8 pl-2 rounded"
-              placeholder={"Input Detail"}
-            />
-            {errors.detail?.message && (
-              <span className="error-message text-sm text-red-500">
-                {errors.detail.message.toString()}
-              </span>
-            )}
-          </label>
           <label key="review" className="w-full text-xl h-20">
             Review
             <input
@@ -113,6 +97,21 @@ export const NewReview = () => {
             {errors.review?.message && (
               <span className="error-message text-sm text-red-500">
                 {errors.review.message.toString()}
+              </span>
+            )}
+          </label>
+          <label key="detail" className="w-full text-xl h-50">
+            Detail
+            <textarea
+              key="detail"
+              id="detail"
+              {...register("detail", { required: "Pelase Input Detail" })}
+              className="w-full h-32 pl-2 resize-none rounded"
+              placeholder={"Input Detail"}
+            />
+            {errors.detail?.message && (
+              <span className="error-message text-sm text-red-500">
+                {errors.detail.message.toString()}
               </span>
             )}
           </label>
