@@ -1,6 +1,6 @@
 // import { createRoot } from "react-dom/client";
 import { BrowserRouter } from "react-router-dom";
-import { Login } from "../../src/pages/LogIn";
+import { Login } from "../../src/pages/Login";
 import { render, screen, fireEvent } from '@testing-library/react';
 
 test("ログイン画面-存在チェック", () => {

@@ -68,7 +68,7 @@ export const EditReview = () => {
       .put(`/books/${id}`, postData, {
         headers: { authorization: `Bearer ${cookie.token}` },
       })
-      .then((res) => {
+      .then(() => {
         navigate("/home");
       })
       .catch((err) => {
@@ -81,7 +81,7 @@ export const EditReview = () => {
       .delete(`/books/${id}`, {
         headers: { authorization: `Bearer ${cookie.token}` },
       })
-      .then((res) => {
+      .then(() => {
         navigate("/home");
       })
       .catch((err) => {

@@ -40,7 +40,7 @@ export const SignUp = () => {
               Authorization: `Bearer ${res.data.token}`,
             },
           })
-          .then((res) => {
+          .then(() => {
             dispatch(signIn());
             navigate("/home");
           });

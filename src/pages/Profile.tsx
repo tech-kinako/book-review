@@ -44,7 +44,7 @@ export const Profile = () => {
       .put("/users", postData, {
         headers: { authorization: `Bearer ${cookie.token}` },
       })
-      .then((res) => {
+      .then(() => {
         navigate("/home");
       })
       .catch((err) => {

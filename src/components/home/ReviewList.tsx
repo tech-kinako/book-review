@@ -28,7 +28,7 @@ export const ReviewList: React.FC<IReview> = ({
       key={id}
       className="w-100 h-60 p-4 bg-stone-300 shadow-lg rounded-lg overflow-hidden"
       onKeyDown={(e) => handleKeyDown(e)}
-      onClick={(e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+      onClick={() => {
         handleClickReview(id);
       }}
     >

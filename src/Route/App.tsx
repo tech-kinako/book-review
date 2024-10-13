@@ -3,6 +3,7 @@ import { useCookies } from "react-cookie";
 import { useSelector } from "react-redux";
 import { Navigate, Route, Routes } from "react-router-dom";
 import { useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { Header } from "../components/util/Header";
 import { axiosInstance } from "../interfaces/axiosinterface";
 import { EditReview } from "../pages/EditReview";
@@ -18,6 +19,7 @@ import "../css/app.css";
 function App() {
   const auth = useSelector((state: RootState) => state.auth.isSignIn);
   const [cookie] = useCookies();
+  const navigate = useNavigate();
 
   const ProtectedEditRoute = () => {
     const myUser = useSelector((state: RootState) => state.user.user);
@@ -36,8 +38,8 @@ function App() {
         .then((res) => {
           myUser === res.data.reviewer ? setIsEdit(true) : setIsEdit(false);
         })
-        .catch((err) => {
-          alert(`editの取得に失敗しました。${err.message}`);
+        .catch(() => {
+          navigate("/home");
         });
     };
 

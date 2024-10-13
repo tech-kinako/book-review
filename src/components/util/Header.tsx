@@ -1,9 +1,11 @@
 import { useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 import book from "../../assets/book-icon.png";
 import { signOut } from "../../redux/authSlice";
 import type { AppDispatch } from "../../redux/store";
+import type { RootState } from "../../redux/store";
 import { Button } from "../util/Button";
 
 export const Header = () => {
@@ -12,6 +14,7 @@ export const Header = () => {
   const location = useLocation();
   const dispatch = useDispatch<AppDispatch>();
   const path = location.pathname.split("/")[1];
+  const myUser = useSelector((state: RootState) => state.user.user);
 
   //function
   const handleLoginClick = () => {
@@ -57,6 +60,7 @@ export const Header = () => {
           <h1 className="italic text-3xl font-bold">Book Review App</h1>
         </div>
         <div className="w-full pr-3 flex items-center justify-end space-x-4">
+          <p className="text-2xl font-bold mr-8">{myUser}</p>
           <Button
             style="w-28 bg-zinc-700 hover:bg-zinc-500 text-white font-bold py-2 px-4 h-9 rounded"
             btnText="Log in"

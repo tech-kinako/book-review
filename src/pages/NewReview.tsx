@@ -26,7 +26,7 @@ export const NewReview = () => {
       .post("/books", postData, {
         headers: { authorization: `Bearer ${cookie.token}` },
       })
-      .then((res) => {
+      .then(() => {
         navigate("/home");
       })
       .catch((err) => {
